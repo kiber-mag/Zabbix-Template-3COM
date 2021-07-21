@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-07-21T00:41:46Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template 3COM</template>
+            <name>Template 3COM</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>swith</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>ifOperStatus</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE},.1.3.6.1.2.1.2.2.1.8]</snmp_oid>
+                    <key>ifOperStatus</key>
+                    <description>The current operational state of the interface.&#13;
+The testing(3) state indicates that no operational&#13;
+packets can be passed.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Status Port.{#SNMPINDEX}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}</snmp_oid>
+                            <key>ifOperStatus.[{#SNMPINDEX}]</key>
+                            <applications>
+                                <application>
+                                    <name>swith</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>3Com Port Status</name>
+                            </valuemap>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>ifOutOctets</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPVALUE}, .1.3.6.1.2.1.2.2.1.16]</snmp_oid>
+                    <key>ifOutOctets</key>
+                    <description>The total number of octets transmitted out of the&#13;
+interface, including framing characters.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>ifOutOctets.Trafic.{#SNMPINDEX} - {#SNMPVALUE}</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>.1.3.6.1.2.1.2.2.1.16.{#SNMPINDEX}</snmp_oid>
+                            <key>ifOutOctets.[{#SNMPINDEX}]</key>
+                            <applications>
+                                <application>
+                                    <name>swith</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$SNMP_COMMUNITY}</macro>
+                    <value>public</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>3Com Port Status</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>UP</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>DOWN</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>testing</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>unknown</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>dormant</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>notPresent</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>lowerLayerDown</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
